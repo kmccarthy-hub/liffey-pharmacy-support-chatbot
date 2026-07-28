@@ -36,6 +36,7 @@ test("system instruction explicitly limits medical and live-data claims", () => 
   assert.match(SYSTEM_INSTRUCTION, /untrusted reference data/i);
   assert.match(SYSTEM_INSTRUCTION, /LIVE_RXNORM_DATA/i);
   assert.match(SYSTEM_INSTRUCTION, /requested brand itself is not listed/i);
+  assert.match(SYSTEM_INSTRUCTION, /never call it an equivalent, alternative, substitute/i);
   assert.match(SYSTEM_INSTRUCTION, /listed for this week/i);
   assert.match(SYSTEM_INSTRUCTION, /112 or 999/i);
 });
