@@ -94,7 +94,7 @@ export default async function handler(req, res) {
         contents,
         generationConfig: {
           temperature: 0.45,
-          maxOutputTokens: 420
+          maxOutputTokens: 1024
         }
       })
     });
@@ -120,4 +120,3 @@ export default async function handler(req, res) {
 }
 
 export { cleanHistory, extractReply, SYSTEM_INSTRUCTION };
-
