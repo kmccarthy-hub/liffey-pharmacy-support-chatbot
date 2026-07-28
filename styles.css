@@ -101,6 +101,7 @@ button { cursor: pointer; }
 .messages { height: 340px; padding: 22px; overflow-y: auto; background: linear-gradient(180deg, #fbfefd 0%, #ffffff 70%); }
 .message { width: fit-content; max-width: 78%; margin: 0 0 16px; padding: 12px 15px; border-radius: 16px; }
 .message p { margin: 0; white-space: pre-wrap; }
+.message strong { font-weight: 700; }
 .message-label { margin-bottom: 4px; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; opacity: .65; }
 .assistant-message { background: var(--mint-soft); border-bottom-left-radius: 4px; }
 .user-message { margin-left: auto; color: white; background: var(--teal); border-bottom-right-radius: 4px; }
@@ -131,4 +132,3 @@ footer { padding: 18px 32px; color: var(--muted); background: #edf5f2; border-to
   .support-layout { grid-template-columns: 250px minmax(440px, 1fr); }
   .site-header { padding-inline: 24px; }
 }
-

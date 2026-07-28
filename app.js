@@ -1,3 +1,5 @@
+import { appendFormattedText } from "./format.js";
+
 const form = document.querySelector("#chat-form");
 const input = document.querySelector("#chat-input");
 const messages = document.querySelector("#messages");
@@ -19,7 +21,7 @@ function appendMessage(role, text, extraClass = "") {
   label.textContent = role === "user" ? "You" : "AI assistant";
 
   const paragraph = document.createElement("p");
-  paragraph.textContent = text;
+  appendFormattedText(paragraph, text);
   article.append(label, paragraph);
   messages.append(article);
   messages.scrollTop = messages.scrollHeight;
