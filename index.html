@@ -24,6 +24,7 @@
       <div class="header-badges" aria-label="Service information">
         <span class="badge badge-ai"><span class="pulse" aria-hidden="true"></span> AI-powered</span>
         <span class="badge badge-live"><span class="pulse" aria-hidden="true"></span> Live catalogue</span>
+        <span class="badge badge-live"><span class="pulse" aria-hidden="true"></span> RxNorm connected</span>
         <span class="badge badge-demo">Fictional demo</span>
       </div>
     </header>
@@ -32,7 +33,7 @@
       <section class="intro" aria-labelledby="page-title">
         <p class="eyebrow">Liffey Pharmacy Support</p>
         <h1 id="page-title">How can we help today?</h1>
-        <p>Ask our AI assistant about current catalogue prices, offers and availability. It cannot diagnose conditions or give personalised medical advice.</p>
+        <p>Ask our AI assistant about current catalogue prices, offers and availability, or use live RxNorm data to identify a medicine name. It cannot diagnose conditions or give personalised medical advice.</p>
       </section>
 
       <div class="support-layout">
@@ -71,6 +72,7 @@
           <div class="suggestions" aria-label="Suggested questions">
             <button type="button" data-question="How much is the Sunscreen SPF50 Lotion, and is it available?">Sunscreen price</button>
             <button type="button" data-question="Which products currently have special offers?">Special offers</button>
+            <button type="button" data-question="Do you have Advil in stock?">Advil lookup</button>
           </div>
 
           <form id="chat-form" class="chat-form">
@@ -81,16 +83,17 @@
               <span aria-hidden="true">→</span>
             </button>
           </form>
-          <p class="chat-disclosure">You are chatting with an AI system using a live catalogue refreshed for each question. Verify important information with a pharmacist. Do not share personal or medical information.</p>
+          <p class="chat-disclosure">You are chatting with an AI system using a live catalogue and, when relevant, live RxNorm medicine data. Verify important information with a pharmacist. Do not share personal or medical information.</p>
         </section>
       </div>
     </main>
 
     <footer>
       <p>Liffey Pharmacy is a fictional business created for an academic demonstration. This website does not provide medical services.</p>
+      <p>This product uses publicly available data from the U.S. National Library of Medicine (NLM). NLM does not endorse or recommend this product.</p>
     </footer>
 
     <script src="config.js?v=2"></script>
-    <script type="module" src="app.js?v=3"></script>
+    <script type="module" src="app.js?v=4"></script>
   </body>
 </html>

@@ -34,8 +34,84 @@ test("system instruction explicitly limits medical and live-data claims", () => 
   assert.match(SYSTEM_INSTRUCTION, /Do not diagnose/i);
   assert.match(SYSTEM_INSTRUCTION, /fresh LIVE_CATALOG_DATA/i);
   assert.match(SYSTEM_INSTRUCTION, /untrusted reference data/i);
+  assert.match(SYSTEM_INSTRUCTION, /LIVE_RXNORM_DATA/i);
+  assert.match(SYSTEM_INSTRUCTION, /requested brand itself is not listed/i);
   assert.match(SYSTEM_INSTRUCTION, /listed for this week/i);
   assert.match(SYSTEM_INSTRUCTION, /112 or 999/i);
+});
+
+test("endpoint combines live RxNorm identity data with a live catalogue ingredient match", async (t) => {
+  const originalFetch = global.fetch;
+  const originalKey = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = "test-secret-key";
+  let geminiRequest;
+  global.fetch = async (url, options) => {
+    const target = String(url);
+    if (target.includes("docs.google.com")) {
+      return {
+        ok: true,
+        status: 200,
+        async text() {
+          return 'item_id,item_name,category,type,active_ingredient,price_eur,pack_size,requires_pharmacist,availability,stock_this_week,special_offer,description\nP013,Ibuprofen 200mg Tablets,Pain Relief,Medicine,Ibuprofen,4,16 tablets,No,In stock,35,Buy one get one half price,Pain relief tablets';
+        }
+      };
+    }
+    if (target.includes("approximateTerm")) {
+      return {
+        ok: true,
+        status: 200,
+        async json() {
+          return { approximateGroup: { candidate: [{ rxcui: "153010", name: "Advil", source: "RXNORM" }] } };
+        }
+      };
+    }
+    if (target.includes("allrelated")) {
+      return {
+        ok: true,
+        status: 200,
+        async json() {
+          return {
+            allRelatedGroup: {
+              conceptGroup: [
+                { tty: "IN", conceptProperties: [{ rxcui: "5640", name: "ibuprofen" }] },
+                { tty: "SBD", conceptProperties: [{ rxcui: "153008", name: "ibuprofen 200 MG Oral Tablet [Advil]" }] }
+              ]
+            }
+          };
+        }
+      };
+    }
+    geminiRequest = JSON.parse(options.body);
+    return {
+      ok: true,
+      status: 200,
+      async json() {
+        return { candidates: [{ content: { parts: [{ text: "Advil is not listed, but generic ibuprofen is listed." }] } }] };
+      }
+    };
+  };
+  t.after(() => {
+    global.fetch = originalFetch;
+    if (originalKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = originalKey;
+  });
+
+  const req = {
+    method: "POST",
+    headers: { origin: "https://kmccarthy-hub.github.io" },
+    body: { message: "Do you have Advil in stock?", history: [] },
+    socket: { remoteAddress: "rxnorm-test-ip" }
+  };
+  const res = responseDouble();
+  await handler(req, res);
+
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(res.body.liveData.sources, ["Google Sheet", "RxNorm"]);
+  assert.equal(res.body.liveData.rxNorm.rxcui, "153010");
+  const prompt = JSON.stringify(geminiRequest.contents);
+  assert.match(prompt, /LIVE_RXNORM_DATA/);
+  assert.match(prompt, /ibuprofen 200 MG Oral Tablet \[Advil\]/);
+  assert.match(prompt, /Ibuprofen 200mg Tablets/);
 });
 
 test("endpoint rejects an unapproved website origin", async () => {

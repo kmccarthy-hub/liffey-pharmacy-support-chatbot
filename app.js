@@ -84,8 +84,11 @@ async function sendMessage(question) {
           second: "2-digit"
         })
       : "just now";
+    const sources = Array.isArray(data.liveData?.sources) && data.liveData.sources.length
+      ? ` · ${data.liveData.sources.join(" + ")}`
+      : "";
     const recordCount = data.liveData?.recordCount ? ` · ${data.liveData.recordCount} items` : "";
-    setConnection(`Live data${recordCount} · fetched ${fetchedTime}`);
+    setConnection(`Live data${sources}${recordCount} · fetched ${fetchedTime}`);
   } catch (error) {
     typing.remove();
     const message = error instanceof TypeError
