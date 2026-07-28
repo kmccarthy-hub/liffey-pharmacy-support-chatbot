@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseBoldSegments } from "../format.js";
+import { parseBoldSegments, parseFormattedSegments } from "../format.js";
 
 test("bold Markdown markers become formatted segments", () => {
   assert.deepEqual(parseBoldSegments("Call **112** or **999** now."), [
@@ -18,3 +18,12 @@ test("plain and unmatched Markdown stays plain text", () => {
   ]);
 });
 
+test("safe formatter handles list markers, bold, and italic text", () => {
+  assert.deepEqual(parseFormattedSegments("* **Sunscreen** – *half price*\n- Vitamin D"), [
+    { text: "• ", style: "plain" },
+    { text: "Sunscreen", style: "bold" },
+    { text: " – ", style: "plain" },
+    { text: "half price", style: "italic" },
+    { text: "\n• Vitamin D", style: "plain" }
+  ]);
+});

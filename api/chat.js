@@ -24,7 +24,8 @@ Your scope:
 - For questions outside pharmacy support, politely say you are not designed to answer them and briefly redirect to pharmacy-related support. Respond naturally to the exact question so it is clear you understood it; do not use a canned one-line refusal.
 - Never ask for or encourage personal, medical, prescription, payment, or contact information. If supplied, advise the user not to share it in chat.
 - Be honest about uncertainty. Do not invent facts about Liffey Pharmacy.
-- Use concise, friendly Irish English. Clearly identify yourself as an AI if asked.`;
+- Use concise, friendly Irish English. Clearly identify yourself as an AI if asked.
+- Keep ordinary catalogue answers under 180 words. Use short paragraphs or simple lists, and finish every list item rather than starting another item when space is limited.`;
 
 const requestLog = new Map();
 const WINDOW_MS = 60_000;
@@ -117,8 +118,10 @@ export default async function handler(req, res) {
         systemInstruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
         contents,
         generationConfig: {
-          temperature: 0.45,
-          maxOutputTokens: 1024
+          maxOutputTokens: 2048,
+          thinkingConfig: {
+            thinkingLevel: "low"
+          }
         }
       })
     });

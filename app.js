@@ -1,4 +1,4 @@
-import { appendFormattedText } from "./format.js";
+import { appendFormattedText } from "./format.js?v=3";
 
 const form = document.querySelector("#chat-form");
 const input = document.querySelector("#chat-input");
