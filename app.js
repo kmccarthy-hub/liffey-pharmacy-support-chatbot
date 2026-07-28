@@ -77,7 +77,15 @@ async function sendMessage(question) {
       { role: "user", text: cleaned },
       { role: "model", text: data.reply }
     );
-    setConnection(`Live Gemini response · ${data.model || "connected"}`);
+    const fetchedTime = data.liveData?.fetchedAt
+      ? new Date(data.liveData.fetchedAt).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        })
+      : "just now";
+    const recordCount = data.liveData?.recordCount ? ` · ${data.liveData.recordCount} items` : "";
+    setConnection(`Live data${recordCount} · fetched ${fetchedTime}`);
   } catch (error) {
     typing.remove();
     const message = error instanceof TypeError

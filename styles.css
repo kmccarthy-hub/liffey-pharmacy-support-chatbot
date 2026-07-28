@@ -67,6 +67,7 @@ button { cursor: pointer; }
 }
 
 .badge-ai { color: var(--teal-dark); background: var(--mint); }
+.badge-live { color: #1f5b47; background: #e6f5df; }
 .badge-demo { color: #6f5b25; background: var(--warning); }
 .pulse { width: 7px; height: 7px; border-radius: 50%; background: #18a67f; box-shadow: 0 0 0 4px rgba(24, 166, 127, .12); }
 

@@ -32,7 +32,9 @@ test("reply extraction joins returned text parts", () => {
 
 test("system instruction explicitly limits medical and live-data claims", () => {
   assert.match(SYSTEM_INSTRUCTION, /Do not diagnose/i);
-  assert.match(SYSTEM_INSTRUCTION, /Live catalogue data is not connected/i);
+  assert.match(SYSTEM_INSTRUCTION, /fresh LIVE_CATALOG_DATA/i);
+  assert.match(SYSTEM_INSTRUCTION, /untrusted reference data/i);
+  assert.match(SYSTEM_INSTRUCTION, /listed for this week/i);
   assert.match(SYSTEM_INSTRUCTION, /112 or 999/i);
 });
 
@@ -54,6 +56,15 @@ test("endpoint returns a Gemini reply without exposing its key", async (t) => {
   process.env.GEMINI_API_KEY = "test-secret-key";
   let captured;
   global.fetch = async (url, options) => {
+    if (String(url).includes("docs.google.com")) {
+      return {
+        ok: true,
+        status: 200,
+        async text() {
+          return 'item_id,item_name,category,type,active_ingredient,price_eur,pack_size,requires_pharmacist,availability,stock_this_week,special_offer,description\nP024,Sunscreen SPF50 Lotion,Skin Care,Product,,13,200ml,No,In stock,29,Buy one get one half price,Light lotion';
+        }
+      };
+    }
     captured = { url, options };
     return {
       ok: true,
@@ -80,8 +91,9 @@ test("endpoint returns a Gemini reply without exposing its key", async (t) => {
 
   assert.equal(res.statusCode, 200);
   assert.equal(res.body.reply, "A fresh AI response.");
+  assert.equal(res.body.liveData.source, "Google Sheet");
+  assert.equal(res.body.liveData.recordCount, 1);
   assert.equal(res.headers["Cache-Control"], "no-store");
   assert.equal(captured.options.headers["x-goog-api-key"], "test-secret-key");
   assert.doesNotMatch(JSON.stringify(res.body), /test-secret-key/);
 });
-

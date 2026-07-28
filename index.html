@@ -23,6 +23,7 @@
       </a>
       <div class="header-badges" aria-label="Service information">
         <span class="badge badge-ai"><span class="pulse" aria-hidden="true"></span> AI-powered</span>
+        <span class="badge badge-live"><span class="pulse" aria-hidden="true"></span> Live catalogue</span>
         <span class="badge badge-demo">Fictional demo</span>
       </div>
     </header>
@@ -31,7 +32,7 @@
       <section class="intro" aria-labelledby="page-title">
         <p class="eyebrow">Liffey Pharmacy Support</p>
         <h1 id="page-title">How can we help today?</h1>
-        <p>Ask our AI assistant a general question about pharmacy products or services. It cannot diagnose conditions or give personalised medical advice.</p>
+        <p>Ask our AI assistant about current catalogue prices, offers and availability. It cannot diagnose conditions or give personalised medical advice.</p>
       </section>
 
       <div class="support-layout">
@@ -46,7 +47,7 @@
           </ul>
           <div class="data-note">
             <span aria-hidden="true">◆</span>
-            <p><strong>AI response mode</strong><br>Live catalogue data is not connected in this first build.</p>
+            <p><strong>Live catalogue connected</strong><br>Our live data source is refreshed for every question.</p>
           </div>
         </aside>
 
@@ -63,13 +64,13 @@
           <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
             <article class="message assistant-message">
               <div class="message-label">AI assistant</div>
-              <p>Hello! I’m the Liffey Pharmacy AI support assistant. I can help with general questions about pharmacy products and services. What would you like to ask?</p>
+              <p>Hello! I’m the Liffey Pharmacy AI support assistant. I can check our live catalogue for current products, prices, offers and availability. What would you like to ask?</p>
             </article>
           </div>
 
           <div class="suggestions" aria-label="Suggested questions">
-            <button type="button" data-question="What kinds of services can a community pharmacy usually provide?">Common services</button>
-            <button type="button" data-question="What should I do if I need personalised advice about a medicine?">Medicine advice</button>
+            <button type="button" data-question="How much is the Sunscreen SPF50 Lotion, and is it available?">Sunscreen price</button>
+            <button type="button" data-question="Which products currently have special offers?">Special offers</button>
           </div>
 
           <form id="chat-form" class="chat-form">
@@ -80,7 +81,7 @@
               <span aria-hidden="true">→</span>
             </button>
           </form>
-          <p class="chat-disclosure">You are chatting with an AI system. Responses may be inaccurate—verify important information with a pharmacist. Do not share personal or medical information.</p>
+          <p class="chat-disclosure">You are chatting with an AI system using a live catalogue refreshed for each question. Verify important information with a pharmacist. Do not share personal or medical information.</p>
         </section>
       </div>
     </main>
