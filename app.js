@@ -1,4 +1,4 @@
-import { appendFormattedText } from "./format.js?v=3";
+import { appendFormattedText, ensureRetryGuidance } from "./format.js?v=5";
 
 const form = document.querySelector("#chat-form");
 const input = document.querySelector("#chat-input");
@@ -94,7 +94,7 @@ async function sendMessage(question) {
     const message = error instanceof TypeError
       ? "The secure AI service could not be reached."
       : error.message;
-    appendMessage("assistant", `${message} Please try again shortly.`, "error-message");
+    appendMessage("assistant", ensureRetryGuidance(message), "error-message");
     setConnection("AI connection unavailable", true);
   } finally {
     sendButton.disabled = false;

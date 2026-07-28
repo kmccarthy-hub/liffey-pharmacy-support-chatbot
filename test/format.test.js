@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parseBoldSegments, parseFormattedSegments } from "../format.js";
+import { ensureRetryGuidance, parseBoldSegments, parseFormattedSegments } from "../format.js";
 
 test("bold Markdown markers become formatted segments", () => {
   assert.deepEqual(parseBoldSegments("Call **112** or **999** now."), [
@@ -26,4 +26,15 @@ test("safe formatter handles list markers, bold, and italic text", () => {
     { text: "half price", style: "italic" },
     { text: "\n• Vitamin D", style: "plain" }
   ]);
+});
+
+test("retry guidance is added once only", () => {
+  assert.equal(
+    ensureRetryGuidance("The live catalogue could not be refreshed. Please try again shortly."),
+    "The live catalogue could not be refreshed. Please try again shortly."
+  );
+  assert.equal(
+    ensureRetryGuidance("The secure AI service could not be reached."),
+    "The secure AI service could not be reached. Please try again shortly."
+  );
 });

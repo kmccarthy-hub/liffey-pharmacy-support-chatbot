@@ -57,3 +57,10 @@ export function appendFormattedText(element, text) {
     }
   }
 }
+
+export function ensureRetryGuidance(message) {
+  const cleaned = String(message || "").trim();
+  return /\btry again\b/i.test(cleaned)
+    ? cleaned
+    : `${cleaned} Please try again shortly.`.trim();
+}
