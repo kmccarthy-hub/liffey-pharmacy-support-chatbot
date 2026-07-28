@@ -1,0 +1,14 @@
+{
+  "name": "liffey-pharmacy-support-chatbot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Fictional AI support assistant for Liffey Pharmacy.",
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
+

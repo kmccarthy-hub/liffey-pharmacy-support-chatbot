@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Liffey Pharmacy's fictional AI support assistant.">
+    <title>Liffey Pharmacy Support Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Liffey Pharmacy home">
+        <span class="brand-mark" aria-hidden="true">
+          <span></span><span></span>
+        </span>
+        <span>
+          <strong>Liffey Pharmacy</strong>
+          <small>Clear support, close to home</small>
+        </span>
+      </a>
+      <div class="header-badges" aria-label="Service information">
+        <span class="badge badge-ai"><span class="pulse" aria-hidden="true"></span> AI-powered</span>
+        <span class="badge badge-demo">Fictional demo</span>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">Liffey Pharmacy Support</p>
+        <h1 id="page-title">How can we help today?</h1>
+        <p>Ask our AI assistant a general question about pharmacy products or services. It cannot diagnose conditions or give personalised medical advice.</p>
+      </section>
+
+      <div class="support-layout">
+        <aside class="support-card" aria-labelledby="support-title">
+          <div class="support-card-icon" aria-hidden="true">i</div>
+          <h2 id="support-title">Before you ask</h2>
+          <p>This assistant provides general support only.</p>
+          <ul>
+            <li>Ask about general pharmacy products and services</li>
+            <li>Speak to a pharmacist for health or medicine advice</li>
+            <li>Call emergency services on <strong>112 or 999</strong> if someone may be in immediate danger</li>
+          </ul>
+          <div class="data-note">
+            <span aria-hidden="true">◆</span>
+            <p><strong>AI response mode</strong><br>Live catalogue data is not connected in this first build.</p>
+          </div>
+        </aside>
+
+        <section class="chat-card" aria-labelledby="chat-title">
+          <div class="chat-header">
+            <div class="assistant-avatar" aria-hidden="true">LP</div>
+            <div>
+              <h2 id="chat-title">Liffey Pharmacy Support Assistant</h2>
+              <p id="connection-label"><span class="status-dot" aria-hidden="true"></span> AI assistant ready</p>
+            </div>
+            <button id="clear-chat" class="clear-button" type="button">Clear chat</button>
+          </div>
+
+          <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions">
+            <article class="message assistant-message">
+              <div class="message-label">AI assistant</div>
+              <p>Hello! I’m the Liffey Pharmacy AI support assistant. I can help with general questions about pharmacy products and services. What would you like to ask?</p>
+            </article>
+          </div>
+
+          <div class="suggestions" aria-label="Suggested questions">
+            <button type="button" data-question="What kinds of services can a community pharmacy usually provide?">Common services</button>
+            <button type="button" data-question="What should I do if I need personalised advice about a medicine?">Medicine advice</button>
+          </div>
+
+          <form id="chat-form" class="chat-form">
+            <label class="sr-only" for="chat-input">Message the AI assistant</label>
+            <textarea id="chat-input" name="message" rows="2" maxlength="800" placeholder="Type your question..." required></textarea>
+            <button id="send-button" class="send-button" type="submit">
+              <span>Send</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </form>
+          <p class="chat-disclosure">You are chatting with an AI system. Responses may be inaccurate—verify important information with a pharmacist. Do not share personal or medical information.</p>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <p>Liffey Pharmacy is a fictional business created for an academic demonstration. This website does not provide medical services.</p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
