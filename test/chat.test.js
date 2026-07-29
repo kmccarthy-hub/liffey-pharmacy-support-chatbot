@@ -39,6 +39,8 @@ test("system instruction explicitly limits medical and live-data claims", () => 
   assert.match(SYSTEM_INSTRUCTION, /never call it an equivalent, alternative, substitute/i);
   assert.match(SYSTEM_INSTRUCTION, /listed for this week/i);
   assert.match(SYSTEM_INSTRUCTION, /112 or 999/i);
+  assert.match(SYSTEM_INSTRUCTION, /do not provide the requested answer, fact, explanation/i);
+  assert.match(SYSTEM_INSTRUCTION, /acknowledge the topic without revealing the answer/i);
 });
 
 test("endpoint combines live RxNorm identity data with a live catalogue ingredient match", async (t) => {
